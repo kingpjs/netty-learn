@@ -52,7 +52,7 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
                 timer.newTimeout(this, timeout, TimeUnit.MILLISECONDS);
             }
         }
-        ctx.fireChannelActive();
+        ctx.fireChannelInactive();
     }
 
     public void run(Timeout timeout) throws Exception {
@@ -72,7 +72,7 @@ public abstract class ConnectionWatchDog extends ChannelInboundHandlerAdapter im
                 boolean succeed = f.isSuccess();
                 if (!succeed) {
                     System.out.println("重连失败");
-                    f.channel().pipeline().fireChannelActive();
+                    f.channel().pipeline().fireChannelInactive();
                 } else {
                     System.out.println("重连成功");
                 }
